@@ -21,7 +21,6 @@
     <?php include '../../../includes/navbar.php'; ?>
 
     <div class="container py-5">
-        
         <div class="purchase-container">
             <?php if (!empty($data['error_message'])): ?>
                 <div class="alert alert-danger"><?= $data['error_message'] ?></div>
@@ -50,35 +49,77 @@
                         </div>
                     </div>
 
-                    <form method="POST" class="mt-4">
-
-                        <div class="mb-3">
-                            <label class="form-label">Phương thức thanh toán</label>
-                            <select class="form-select" required>
-                                <option value="wallet">Ví điện tử</option>
-                                <option value="bank">Chuyển khoản ngân hàng</option>
-                                <option value="card">Thẻ tín dụng/ghi nợ</option>
-                            </select>
-                        </div>
-
-                        <div class="price-summary">
-                            <div class="d-flex justify-content-between mb-3">
-                                <strong>Tổng thanh toán:</strong>
-                                <strong><?= formatPrice($data['novel']['price']) ?></strong>
-                            </div>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-shopping-cart me-1"></i>
-                                Xác nhận mua với giá <?= formatPrice($data['novel']['price']) ?>
+                    <!-- Chọn phương thức thanh toán -->
+                    <?php if ($data['paymentMethod'] === null): ?>
+                        <h5>Chọn phương thức thanh toán</h5>
+                        <form method="post" action="">
+                            <button type="submit" name="payment_method" value="wallet" class="btn btn-outline-primary w-100 mb-2">
+                                <i class="fas fa-wallet me-1"></i> Ví điện tử
                             </button>
-                            <a href="../../../app/Controllers/User/Novel_controller.php?id=<?= $data['novel_id'] ?>" class="btn btn-outline-secondary">
-                                <i class="fas fa-arrow-left me-1"></i>
-                                Quay lại
-                            </a>
+                            <button type="submit" name="payment_method" value="bank" class="btn btn-outline-success w-100 mb-2">
+                                <i class="fas fa-university me-1"></i> Chuyển khoản ngân hàng
+                            </button>
+                            <button type="submit" name="payment_method" value="card" class="btn btn-outline-danger w-100">
+                                <i class="fas fa-credit-card me-1"></i> Thẻ tín dụng / ghi nợ
+                            </button>
+                        </form>
+
+                    <?php elseif ($data['paymentMethod'] === 'wallet'): ?>
+                        <h5>Thanh toán qua Ví điện tử</h5>
+                        <p>Vui lòng quét mã QR bên dưới để thanh toán:</p>
+                        <img src="<?= BASE_URL ?>/uploads/covers/ViDienTu.jpg" 
+                             alt="QR Ví điện tử" class="img-fluid mb-3" style="max-width:300px;">
+                        <form method="post" action="">
+                            <input type="hidden" name="payment_method" value="wallet">
+                            <button type="submit" name="confirm_payment" value="1" class="btn btn-success">Xác nhận đã thanh toán</button>
+                        </form>
+                        <form method="post" action="" class="mt-2">
+                            <button type="submit" class="btn btn-secondary">Quay lại chọn phương thức khác</button>
+                        </form>
+
+                    <?php elseif ($data['paymentMethod'] === 'bank'): ?>
+                        <h5>Thanh toán qua Chuyển khoản ngân hàng</h5>
+                        <p>Vui lòng quét mã QR bên dưới để thanh toán:</p>
+                        <img src="<?= BASE_URL ?>/uploads/covers/NganHang.jpg" 
+                             alt="QR Ngân hàng" class="img-fluid mb-3" style="max-width:300px;">
+                        <form method="post" action="">
+                            <input type="hidden" name="payment_method" value="bank">
+                            <button type="submit" name="confirm_payment" value="1" class="btn btn-success">Xác nhận đã thanh toán</button>
+                        </form>
+                        <form method="post" action="" class="mt-2">
+                            <button type="submit" class="btn btn-secondary">Quay lại chọn phương thức khác</button>
+                        </form>
+
+                    <?php elseif ($data['paymentMethod'] === 'card'): ?>
+                        <h5>Thanh toán qua Thẻ tín dụng / ghi nợ</h5>
+                        <form method="post" action="">
+                            <div class="mb-3">
+                                <label class="form-label">Số thẻ:</label>
+                                <input type="text" name="card_number" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Ngày hết hạn:</label>
+                                <input type="text" name="expiry_date" placeholder="MM/YY" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">CVV:</label>
+                                <input type="password" name="cvv" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Thanh toán</button>
+                        </form>
+                        <form method="post" action="" class="mt-2">
+                            <button type="submit" class="btn btn-secondary">Quay lại chọn phương thức khác</button>
+                        </form>
+                    <?php endif; ?>
+
+                    <!-- Tổng thanh toán -->
+                    <div class="price-summary mt-4">
+                        <div class="d-flex justify-content-between mb-3">
+                            <strong>Tổng thanh toán:</strong>
+                            <strong><?= formatPrice($data['novel']['price']) ?></strong>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
             </div>
         </div>

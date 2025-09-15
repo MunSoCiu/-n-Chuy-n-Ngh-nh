@@ -26,6 +26,10 @@ class Admin_dashboard_controller {
         
         // Lấy tất cả dữ liệu thống kê
         $data = $this->getDashboardData();
+
+            // 👉 Tạo biến riêng để tránh undefined variable
+    $todayReads = $data['stats']['today']['reads'] ?? 0;
+    $todayRevenue = $data['stats']['today']['revenue'] ?? 0;
         
         // Load view
         include '../../../app/views/Admin/Admin_dashboard_view.php';
@@ -54,6 +58,13 @@ class Admin_dashboard_controller {
         $stats['comments'] = $this->model->getCommentStats();
         $stats['revenue'] = $this->model->getRevenueStats();
         
+        // 👉 Thêm lượt đọc và doanh thu trong ngày
+        $stats['today'] = [
+        'reads'   => $this->model->getTodayReads(),
+        'revenue' => $this->model->getTodayRevenue()
+        
+    ];
+    
         // Lấy dữ liệu chi tiết
         $recent_novels = $this->model->getRecentNovels();
         $new_users = $this->model->getNewUsers();

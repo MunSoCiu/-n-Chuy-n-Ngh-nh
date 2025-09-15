@@ -23,7 +23,6 @@ class Purchase_controller {
         
         // Kiểm tra novel có tồn tại không
         $novel = $this->model->getNovelById($novel_id);
-        
         if (!$novel) {
             header("Location: ../../../index.php");
             exit();
@@ -36,26 +35,37 @@ class Purchase_controller {
         }
         
         $error_message = '';
-        
+        $paymentMethod = null;
+
         // Xử lý mua truyện
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $user_id = $_SESSION['user_id'];
-            $price = $novel['price'];
-            
-            if ($this->model->purchaseNovel($user_id, $novel_id, $price)) {
-                $_SESSION['success_message'] = "Mua truyện thành công!";
-                header("Location: ../../../app/Controllers/User/Novel_controller.php?id=" . $novel_id);
-                exit();
-            } else {
-                $error_message = "Có lỗi xảy ra khi xử lý giao dịch. Vui lòng thử lại.";
-            }
+    // Bước 1: người dùng chọn phương thức
+    if (isset($_POST['payment_method']) && !isset($_POST['confirm_payment'])) {
+        $paymentMethod = $_POST['payment_method'];
+
+    // Bước 2: người dùng đã xác nhận thanh toán
+    } elseif (isset($_POST['confirm_payment'])) {
+        $paymentMethod = $_POST['payment_method'];
+        $user_id = $_SESSION['user_id'];
+        $price   = $novel['price'];
+
+        if ($this->model->purchaseNovel($user_id, $novel_id, $price, $paymentMethod)) {
+            // Thành công → chuyển tới trang đọc truyện
+            header("Location: ../../../app/Controllers/User/Novel_controller.php?id=" . $novel_id);
+            exit();
+        } else {
+            $error_message = "Có lỗi khi xử lý giao dịch. Vui lòng thử lại.";
         }
-        
+    }
+}
+
+
         // Chuẩn bị dữ liệu cho view
         $data = [
             'novel' => $novel,
             'novel_id' => $novel_id,
-            'error_message' => $error_message
+            'error_message' => $error_message,
+            'paymentMethod' => $paymentMethod
         ];
         
         // Load view

@@ -101,6 +101,37 @@
                         </div>
                     </div>
 
+                    <!--   Lượt đọc trong ngày -->
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Lượt đọc trong ngày</h5>
+                                <h3><?php echo $todayReads; ?></h3>
+                                <p class="mb-0">
+                                    <i class="fas fa-chart-line"></i>
+                                    <?= $data['stats']['today']['reads'] ?? 0 ?> lượt đọc
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--doanh thu trong ngày -->
+                 <!--doanh thu trong ngày -->
+             <div class="col-md-3">
+             <div class="card bg-success text-white">
+             <div class="card-body">
+                 <h5 class="card-title">Doanh thu trong ngày</h5>
+                 <h3><?= number_format($todayRevenue, 0, ',', '.') ?> VND</h3>
+                 <p class="mb-0">
+                     <i class="fas fa-chart-line"></i>
+                     <?= number_format($data['stats']['today']['revenue'] ?? 0, 0, ',', '.') ?> VND
+                </p>
+             </div>
+             </div>
+             </div>
+
+            
+
                     <!-- Số truyện đã bán -->
                     <div class="col-md-3">
                         <div class="card bg-info text-white">

@@ -24,10 +24,20 @@ class Purchase_model {
     }
     
     // Thực hiện mua truyện
-    public function purchaseNovel($user_id, $novel_id, $price) {
-        $purchase_stmt = $this->conn->prepare("INSERT INTO Purchases (user_id, novel_id, price) VALUES (?, ?, ?)");
-        $purchase_stmt->bind_param("iid", $user_id, $novel_id, $price);
+    public function purchaseNovel($user_id, $novel_id, $price, $payment_method) {
+        $purchase_stmt = $this->conn->prepare(
+            "INSERT INTO Purchases (user_id, novel_id, price, payment_method) 
+             VALUES (?, ?, ?, ?)"
+        );
+        $purchase_stmt->bind_param("iids", $user_id, $novel_id, $price, $payment_method);
         return $purchase_stmt->execute();
+    }
+
+    // Tổng doanh thu
+    public function getTotalRevenue() {
+        $result = $this->conn->query("SELECT SUM(price) AS total FROM Purchases");
+        $row = $result->fetch_assoc();
+        return $row['total'] ?? 0;
     }
 }
 ?>

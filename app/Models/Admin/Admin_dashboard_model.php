@@ -120,5 +120,30 @@ class Admin_dashboard_model {
         $delete_stmt->bind_param("i", $comment_id);
         return $delete_stmt->execute();
     }
+
+    // Lấy số lượt đọc trong ngày
+    public function getTodayReads() {
+    $sql = "SELECT COUNT(*) AS total 
+            FROM reading_history 
+            WHERE DATE(last_read) = CURDATE()";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->get_result()->fetch_assoc();
+    return (int)($row['total'] ?? 0);
+}
+
+
+    // Lấy doanh thu trong ngày
+    public function getTodayRevenue() {
+    $sql = "SELECT IFNULL(SUM(price - discount_applied), 0) AS revenue 
+            FROM purchases 
+            WHERE DATE(purchase_date) = CURDATE()
+              AND status = 'completed'";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $row = $stmt->get_result()->fetch_assoc();
+    return (float)($row['revenue']?? 0);
+}
+
 }
 ?>
