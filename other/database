@@ -1,0 +1,107 @@
+-- 1. Bảng Users: Cần có trước để tham chiếu đến user_id trong các bảng khác
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    avatar_url VARCHAR(255),
+    role ENUM('user', 'admin') DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Bảng Promotions: Tạo trước vì LightNovels có khóa ngoại promo_id
+CREATE TABLE Promotions (
+    promo_id INT PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(50) UNIQUE NOT NULL,  -- Mã khuyến mãi (ví dụ: "SUMMER2024")
+    discount_percentage DECIMAL(5,2) NOT NULL CHECK (discount_percentage BETWEEN 0 AND 100),
+    start_date TIMESTAMP NOT NULL,
+    end_date TIMESTAMP NOT NULL
+);
+
+-- 3. Bảng LightNovels: Cần tạo sau Promotions vì có promo_id làm khóa ngoại
+CREATE TABLE LightNovels (
+    novel_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    description TEXT,
+    cover_image VARCHAR(255),
+    price DECIMAL(10,2) DEFAULT 0,  -- Giá của truyện (0 = miễn phí)
+    promo_id INT DEFAULT NULL,  -- Liên kết với bảng khuyến mãi
+    status ENUM('Đang tiến hành', 'Đã hoàn thành', 'Đã hủy bỏ') DEFAULT 'Đang tiến hành',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (promo_id) REFERENCES Promotions(promo_id) ON DELETE SET NULL
+);
+
+-- 4. Bảng Chapters: Phụ thuộc vào LightNovels
+CREATE TABLE Chapters (
+    chapter_id INT PRIMARY KEY AUTO_INCREMENT,
+    novel_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (novel_id) REFERENCES LightNovels(novel_id) ON DELETE CASCADE
+);
+
+-- 5. Bảng Categories: Được tạo trước để tham chiếu từ Novel_Categories
+CREATE TABLE Categories (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) UNIQUE NOT NULL
+);
+
+-- 6. Bảng Novel_Categories: Liên kết nhiều-nhiều giữa LightNovels và Categories
+CREATE TABLE Novel_Categories (
+    novel_id INT,
+    category_id INT,
+    PRIMARY KEY (novel_id, category_id),
+    FOREIGN KEY (novel_id) REFERENCES LightNovels(novel_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE CASCADE
+);
+
+-- 7. Bảng Comments: Cần có Users và LightNovels trước
+CREATE TABLE Comments (
+    comment_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    novel_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (novel_id) REFERENCES LightNovels(novel_id) ON DELETE CASCADE
+);
+
+-- 8. Bảng Favorites: Phụ thuộc vào Users và LightNovels
+CREATE TABLE Favorites (
+    user_id INT,
+    novel_id INT,
+    PRIMARY KEY (user_id, novel_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (novel_id) REFERENCES LightNovels(novel_id) ON DELETE CASCADE
+);
+
+-- 9. Bảng Reading_History: Cần có Users, LightNovels và Chapters trước
+CREATE TABLE Reading_History (
+    user_id INT,
+    novel_id INT,
+    chapter_id INT,
+    last_read TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, novel_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (novel_id) REFERENCES LightNovels(novel_id) ON DELETE CASCADE,
+    FOREIGN KEY (chapter_id) REFERENCES Chapters(chapter_id) ON DELETE CASCADE
+);
+
+-- 10. Bảng Purchases: Cần có Users và LightNovels trước
+CREATE TABLE Purchases (
+    purchase_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    novel_id INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,  -- Giá tại thời điểm mua
+    discount_applied DECIMAL(10,2) DEFAULT 0,  -- Mức giảm giá áp dụng
+    purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (novel_id) REFERENCES LightNovels(novel_id) ON DELETE CASCADE
+);
+
+ALTER TABLE Promotions
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN created_by INT,
+ADD FOREIGN KEY (created_by) REFERENCES Users(user_id);

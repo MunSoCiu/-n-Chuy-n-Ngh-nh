@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Book Purchase Flow" id="PurchaseFlow">
+    <mxGraphModel dx="1300" dy="700" grid="1" gridSize="10" guides="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Start -->
+        <mxCell id="start1" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="385" y="20" width="30" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- View Book Details -->
+        <mxCell id="viewBook" value="Xem chi tiết sách" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="80" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Login -->
+        <mxCell id="checkLogin" value="Kiểm tra đăng nhập" style="rhombus;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="350" y="180" width="100" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- Login Form -->
+        <mxCell id="loginForm" value="Form đăng nhập" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="180" y="200" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Already Purchased -->
+        <mxCell id="checkPurchased" value="Kiểm tra đã mua" style="rhombus;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="350" y="320" width="100" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Balance -->
+        <mxCell id="checkBalance" value="Kiểm tra số dư" style="rhombus;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="350" y="460" width="100" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- Purchase Process -->
+        <mxCell id="purchase" value="Xử lý mua sách" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="600" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Already Owned -->
+        <mxCell id="alreadyOwned" value="Đã sở hữu sách" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;" vertex="1" parent="1">
+          <mxGeometry x="520" y="340" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Insufficient Balance -->
+        <mxCell id="insufficientBalance" value="Số dư không đủ" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="520" y="480" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Success -->
+        <mxCell id="success" value="Mua thành công" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="350" y="700" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- End -->
+        <mxCell id="end1" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="385" y="800" width="30" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="conn1" value="" style="endArrow=block;" edge="1" parent="1" source="start1" target="viewBook"/>
+        <mxCell id="conn2" value="Click Mua sách" style="endArrow=block;" edge="1" parent="1" source="viewBook" target="checkLogin"/>
+        <mxCell id="conn3" value="Chưa đăng nhập" style="endArrow=block;" edge="1" parent="1" source="checkLogin" target="loginForm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="conn4" value="Đã đăng nhập" style="endArrow=block;" edge="1" parent="1" source="checkLogin" target="checkPurchased"/>
+        <mxCell id="conn5" value="Đã mua" style="endArrow=block;" edge="1" parent="1" source="checkPurchased" target="alreadyOwned"/>
+        <mxCell id="conn6" value="Chưa mua" style="endArrow=block;" edge="1" parent="1" source="checkPurchased" target="checkBalance"/>
+        <mxCell id="conn7" value="Không đủ" style="endArrow=block;" edge="1" parent="1" source="checkBalance" target="insufficientBalance"/>
+        <mxCell id="conn8" value="Đủ số dư" style="endArrow=block;" edge="1" parent="1" source="checkBalance" target="purchase"/>
+        <mxCell id="conn9" value="Hoàn tất" style="endArrow=block;" edge="1" parent="1" source="purchase" target="success"/>
+        <mxCell id="conn10" value="" style="endArrow=block;" edge="1" parent="1" source="success" target="end1"/>
+        <mxCell id="conn11" value="Quay lại" style="endArrow=block;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="loginForm" target="viewBook">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="110"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  
+  <diagram name="Book Reading Flow" id="ReadingFlow">
+    <mxGraphModel dx="1300" dy="700" grid="1" gridSize="10" guides="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Start -->
+        <mxCell id="start2" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="385" y="20" width="30" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Select Book -->
+        <mxCell id="selectBook" value="Chọn sách" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="80" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Access -->
+        <mxCell id="checkAccess" value="Kiểm tra quyền đọc" style="rhombus;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="350" y="180" width="100" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- Purchase Required -->
+        <mxCell id="purchaseRequired" value="Yêu cầu mua sách" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- View Chapters -->
+        <mxCell id="viewChapters" value="Xem danh sách chương" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="320" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Select Chapter -->
+        <mxCell id="selectChapter" value="Chọn chương" style="rhombus;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="350" y="420" width="100" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- Read Chapter -->
+        <mxCell id="readChapter" value="Đọc chương" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="560" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Update Progress -->
+        <mxCell id="updateProgress" value="Cập nhật tiến độ" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;" vertex="1" parent="1">
+          <mxGeometry x="350" y="660" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Next Chapter -->
+        <mxCell id="nextChapter" value="Chương tiếp?" style="rhombus;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="520" y="560" width="100" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- End -->
+        <mxCell id="end2" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="385" y="760" width="30" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="conn12" value="" style="endArrow=block;" edge="1" parent="1" source="start2" target="selectBook"/>
+        <mxCell id="conn13" value="Chọn sách" style="endArrow=block;" edge="1" parent="1" source="selectBook" target="checkAccess"/>
+        <mxCell id="conn14" value="Không có quyền" style="endArrow=block;" edge="1" parent="1" source="checkAccess" target="purchaseRequired"/>
+        <mxCell id="conn15" value="Có quyền đọc" style="endArrow=block;" edge="1" parent="1" source="checkAccess" target="viewChapters"/>
+        <mxCell id="conn16" value="Chọn chương" style="endArrow=block;" edge="1" parent="1" source="viewChapters" target="selectChapter"/>
+        <mxCell id="conn17" value="Đọc" style="endArrow=block;" edge="1" parent="1" source="selectChapter" target="readChapter"/>
+        <mxCell id="conn18" value="Hoàn thành" style="endArrow=block;" edge="1" parent="1" source="readChapter" target="updateProgress"/>
+        <mxCell id="conn19" value="Tiếp tục" style="endArrow=block;" edge="1" parent="1" source="readChapter" target="nextChapter"/>
+        <mxCell id="conn20" value="Có" style="endArrow=block;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="nextChapter" target="viewChapters">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="610"/>
+              <mxPoint x="680" y="350"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn21" value="" style="endArrow=block;" edge="1" parent="1" source="updateProgress" target="end2"/>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  
+  <diagram name="Book Search Flow" id="SearchFlow">
+    <mxGraphModel dx="1300" dy="700" grid="1" gridSize="10" guides="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Start -->
+        <mxCell id="start3" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="385" y="20" width="30" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Search Form -->
+        <mxCell id="searchForm" value="Form tìm kiếm" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="80" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Enter Keywords -->
+        <mxCell id="enterKeywords" value="Nhập từ khóa" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="180" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Select Category -->
+        <mxCell id="selectCategory" value="Chọn danh mục" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="180" y="180" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Select Price Range -->
+        <mxCell id="selectPrice" value="Chọn khoảng giá" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="520" y="180" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Process Search -->
+        <mxCell id="processSearch" value="Xử lý tìm kiếm" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="350" y="300" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Results -->
+        <mxCell id="checkResults" value="Có kết quả?" style="rhombus;whiteSpace=wrap;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="350" y="400" width="100" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- Display Results -->
+        <mxCell id="displayResults" value="Hiển thị kết quả" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;" vertex="1" parent="1">
+          <mxGeometry x="350" y="540" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- No Results -->
+        <mxCell id="noResults" value="Không tìm thấy" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="520" y="420" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- End -->
+        <mxCell id="end3" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="385" y="640" width="30" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="conn22" value="" style="endArrow=block;" edge="1" parent="1" source="start3" target="searchForm"/>
+        <mxCell id="conn23" value="" style="endArrow=block;" edge="1" parent="1" source="searchForm" target="enterKeywords"/>
+        <mxCell id="conn24" value="Lọc" style="endArrow=block;" edge="1" parent="1" source="searchForm" target="selectCategory"/>
+        <mxCell id="conn25" value="Lọc" style="endArrow=block;" edge="1" parent="1" source="searchForm" target="selectPrice"/>
+        <mxCell id="conn26" value="Tìm kiếm" style="endArrow=block;" edge="1" parent="1" source="enterKeywords" target="processSearch"/>
+        <mxCell id="conn27" value="" style="endArrow=block;" edge="1" parent="1" source="processSearch" target="checkResults"/>
+        <mxCell id="conn28" value="Có" style="endArrow=block;" edge="1" parent="1" source="checkResults" target="displayResults"/>
+        <mxCell id="conn29" value="Không" style="endArrow=block;" edge="1" parent="1" source="checkResults" target="noResults"/>
+        <mxCell id="conn30" value="" style="endArrow=block;" edge="1" parent="1" source="displayResults" target="end3"/>
+        <mxCell id="conn31" value="Tìm lại" style="endArrow=block;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="noResults" target="searchForm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="450"/>
+              <mxPoint x="680" y="110"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

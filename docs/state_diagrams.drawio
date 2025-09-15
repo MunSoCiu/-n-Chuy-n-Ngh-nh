@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2024-03-20T10:00:00.000Z" agent="Mozilla/5.0" version="21.1.9" type="device">
+<diagram id="state-diagrams" name="State Diagrams">
+<mxGraphModel dx="1422" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+
+<!-- Authentication Flow -->
+<mxCell id="auth-title" value="Authentication Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+    <mxGeometry x="60" y="20" width="200" height="30" as="geometry"/>
+</mxCell>
+
+<!-- Login States -->
+<mxCell id="login-start" value="Start" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;" vertex="1" parent="1">
+    <mxGeometry x="100" y="70" width="40" height="40" as="geometry"/>
+</mxCell>
+<mxCell id="login-form" value="Login Form" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="60" y="140" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="validate-credentials" value="Validate&#xa;Credentials" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="65" y="240" width="110" height="110" as="geometry"/>
+</mxCell>
+<mxCell id="check-role" value="Check Role" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="80" y="390" width="80" height="80" as="geometry"/>
+</mxCell>
+<mxCell id="admin-dashboard" value="Admin&#xa;Dashboard" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="200" y="400" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="user-home" value="User Home" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="60" y="510" width="120" height="60" as="geometry"/>
+</mxCell>
+
+<!-- Login Flow Connections -->
+<mxCell id="arrow1" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="login-start" target="login-form">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow2" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="login-form" target="validate-credentials">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow3" value="Invalid" style="endArrow=classic;html=1;" edge="1" parent="1" source="validate-credentials" target="login-form">
+    <mxGeometry x="-0.3" y="20" width="50" height="50" relative="1" as="geometry">
+        <mxPoint as="offset"/>
+        <Array as="points">
+            <mxPoint x="40" y="295"/>
+            <mxPoint x="40" y="170"/>
+        </Array>
+    </mxGeometry>
+</mxCell>
+<mxCell id="arrow4" value="Valid" style="endArrow=classic;html=1;" edge="1" parent="1" source="validate-credentials" target="check-role">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow5" value="Admin" style="endArrow=classic;html=1;" edge="1" parent="1" source="check-role" target="admin-dashboard">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow6" value="User" style="endArrow=classic;html=1;" edge="1" parent="1" source="check-role" target="user-home">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+
+<!-- Book Management Flow -->
+<mxCell id="book-title" value="Book Management Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+    <mxGeometry x="400" y="20" width="200" height="30" as="geometry"/>
+</mxCell>
+
+<!-- Book States -->
+<mxCell id="view-books" value="View Books" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="440" y="70" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="check-purchase" value="Check&#xa;Purchase" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="460" y="170" width="80" height="80" as="geometry"/>
+</mxCell>
+<mxCell id="purchase-book" value="Purchase&#xa;Book" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="580" y="180" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="read-chapters" value="Read&#xa;Chapters" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="440" y="290" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="update-progress" value="Update&#xa;Progress" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="440" y="390" width="120" height="60" as="geometry"/>
+</mxCell>
+
+<!-- Book Flow Connections -->
+<mxCell id="arrow7" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="view-books" target="check-purchase">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow8" value="Not Purchased" style="endArrow=classic;html=1;" edge="1" parent="1" source="check-purchase" target="purchase-book">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow9" value="Purchased" style="endArrow=classic;html=1;" edge="1" parent="1" source="check-purchase" target="read-chapters">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow10" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="read-chapters" target="update-progress">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow11" value="Continue Reading" style="endArrow=classic;html=1;" edge="1" parent="1" source="update-progress" target="read-chapters">
+    <mxGeometry x="-0.3" y="20" width="50" height="50" relative="1" as="geometry">
+        <mxPoint as="offset"/>
+        <Array as="points">
+            <mxPoint x="600" y="420"/>
+            <mxPoint x="600" y="320"/>
+        </Array>
+    </mxGeometry>
+</mxCell>
+
+<!-- Search Flow -->
+<mxCell id="search-title" value="Search Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+    <mxGeometry x="60" y="600" width="200" height="30" as="geometry"/>
+</mxCell>
+
+<!-- Search States -->
+<mxCell id="search-form" value="Search Form" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="60" y="650" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="apply-filters" value="Apply Filters" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="60" y="750" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="search-results" value="Display&#xa;Results" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="60" y="850" width="120" height="60" as="geometry"/>
+</mxCell>
+<mxCell id="no-results" value="No Results&#xa;Found" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+    <mxGeometry x="220" y="850" width="120" height="60" as="geometry"/>
+</mxCell>
+
+<!-- Search Flow Connections -->
+<mxCell id="arrow12" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="search-form" target="apply-filters">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow13" value="Results Found" style="endArrow=classic;html=1;" edge="1" parent="1" source="apply-filters" target="search-results">
+    <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="arrow14" value="No Results" style="endArrow=classic;html=1;" edge="1" parent="1" source="apply-filters" target="no-results">
+    <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points">
+            <mxPoint x="280" y="780"/>
+        </Array>
+    </mxGeometry>
+</mxCell>
+<mxCell id="arrow15" value="Modify Search" style="endArrow=classic;html=1;" edge="1" parent="1" source="no-results" target="search-form">
+    <mxGeometry x="-0.5" y="-20" width="50" height="50" relative="1" as="geometry">
+        <mxPoint as="offset"/>
+        <Array as="points">
+            <mxPoint x="280" y="680"/>
+        </Array>
+    </mxGeometry>
+</mxCell>
+
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile> 

@@ -1,0 +1,53 @@
+/Btl
+│── config.php                 # File cấu hình database
+│── index.php                  # Trang chủ
+│── /css
+│   └── style.css             # CSS chung
+│
+│── /js
+│   └── main.js               # JavaScript chung
+│
+│── /images                   # Thư mục chứa hình ảnh
+│   ├── covers/              # Ảnh bìa truyện
+│   └── avatars/             # Avatar người dùng
+│
+│── /includes                 # Các file dùng chung
+│   ├── navbar.php           # Navigation bar
+│   ├── footer.php           # Footer
+│   └── functions.php        # Các hàm tiện ích
+│
+│── /modules                  # Các module chức năng
+│   ├── /Login               # Module đăng nhập
+│   │   └── login.php
+│   │
+│   ├── /Register            # Module đăng ký
+│   │   └── Register.php
+│   │
+│   ├── /User                # Module người dùng
+│   │   ├── profile.php      # Trang cá nhân
+│   │   ├── favorites.php    # Truyện yêu thích
+│   │   └── history.php      # Lịch sử đọc
+│   │
+│   ├── /Novel               # Module truyện
+│   │   ├── novel.php        # Chi tiết truyện
+│   │   ├── chapter.php      # Đọc chapter
+│   │   └── list.php         # Danh sách truyện
+│   │
+│   ├── /Categories          # Module thể loại
+│   │   └── categories.php   # Danh sách thể loại
+│   │
+│   ├── /Search              # Module tìm kiếm
+│   │   └── search.php       # Trang tìm kiếm
+│   │
+│   └── /Admin               # Module quản trị
+│       ├── dashboard.php    # Bảng điều khiển
+│       ├── novels.php       # Quản lý truyện
+│       └── users.php        # Quản lý người dùng
+│
+│── /api                     # API endpoints
+│   ├── toggle_favorite.php  # API yêu thích
+│   └── update_reading_progress.php  # API cập nhật tiến độ
+│
+└── /uploads                 # Thư mục upload files
+    ├── covers/             # Ảnh bìa upload
+    └── avatars/            # Avatar upload
