@@ -6,33 +6,59 @@ class Admin_purchases_model {
         $this->conn = $connection;
     }
     
-    // Lấy danh sách purchases với tìm kiếm
-    public function getPurchases($search = '', $search_type = 'novel') {
-        $query = "SELECT p.*, n.title as novel_title, u.username, n.price as original_price
-                  FROM Purchases p
-                  JOIN LightNovels n ON p.novel_id = n.novel_id
-                  JOIN Users u ON p.user_id = u.user_id
-                  WHERE 1=1";
-        
-        if ($search) {
-            if ($search_type === 'novel') {
-                $query .= " AND n.title LIKE ?";
-                $search_param = "%$search%";
-            } else {
-                $query .= " AND u.username LIKE ?";
-                $search_param = "%$search%";
-            }
+    // Lấy danh sách purchases với tìm kiếm + lọc ngày/khoảng ngày
+// Lấy danh sách purchases với tìm kiếm + lọc ngày/khoảng ngày
+public function getPurchases($search = '', $search_type = 'novel', $date = '', $from_date = '', $to_date = '') {
+    $query = "SELECT p.*, n.title as novel_title, u.username, n.price as original_price
+              FROM Purchases p
+              JOIN LightNovels n ON p.novel_id = n.novel_id
+              JOIN Users u ON p.user_id = u.user_id
+              WHERE 1=1";
+    
+    $params = [];
+    $types = "";
+
+    // Tìm kiếm theo tên truyện hoặc user
+    if ($search) {
+        if ($search_type === 'novel') {
+            $query .= " AND n.title LIKE ?";
+            $params[] = "%$search%";
+            $types .= "s";
+        } elseif ($search_type === 'user') {
+            $query .= " AND u.username LIKE ?";
+            $params[] = "%$search%";
+            $types .= "s";
         }
-        
-        $query .= " ORDER BY p.purchase_date DESC";
-        
-        $stmt = $this->conn->prepare($query);
-        if ($search) {
-            $stmt->bind_param("s", $search_param);
-        }
-        $stmt->execute();
-        return $stmt->get_result();
     }
+
+    // Lọc theo 1 ngày cụ thể
+    if ($date) {
+        $query .= " AND p.purchase_date BETWEEN ? AND ?";
+        $params[] = $date . " 00:00:00";
+        $params[] = $date . " 23:59:59";
+        $types .= "ss";
+    }
+
+    // Lọc theo khoảng ngày
+    if ($from_date && $to_date) {
+        $query .= " AND p.purchase_date BETWEEN ? AND ?";
+        $params[] = $from_date . " 00:00:00";
+        $params[] = $to_date . " 23:59:59";
+        $types .= "ss";
+    }
+
+    $query .= " ORDER BY p.purchase_date DESC";
+
+    $stmt = $this->conn->prepare($query);
+    if (!empty($params)) {
+        $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
+
+
     
     // Xóa purchase
     public function deletePurchase($purchase_id) {

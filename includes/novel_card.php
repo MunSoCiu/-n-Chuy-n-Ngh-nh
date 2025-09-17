@@ -12,10 +12,13 @@ function renderNovelCard($novel, $card_class = '') {
         <div class="card h-100 novel-card <?= $card_class ?>">
             <!-- Phần ảnh cố định chiều cao -->
             <div class="novel-cover-wrapper">
-                <img src="<?= $base_url . '/' . ($novel['cover_image'] ?: 'images/covers/default-cover.jpg') ?>" 
-                     class="card-img-top novel-cover" 
-                     alt="<?= htmlspecialchars($novel['title']) ?>">
-            </div>
+    <a href="<?= $base_url ?>/app/Controllers/User/Novel_controller.php?id=<?= $novel['novel_id'] ?>">
+        <img src="<?= $base_url . '/' . ($novel['cover_image'] ?: 'images/covers/default-cover.jpg') ?>" 
+             class="card-img-top novel-cover" 
+             alt="<?= htmlspecialchars($novel['title']) ?>">
+    </a>
+</div>
+
             
             <div class="card-body d-flex flex-column">
                 <!-- Phần thông tin cơ bản -->

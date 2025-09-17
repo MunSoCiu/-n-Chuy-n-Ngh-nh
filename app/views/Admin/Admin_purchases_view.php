@@ -112,33 +112,67 @@
                     </div>
                 </div>
 
-                <!-- Form tìm kiếm -->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <form method="GET" class="row g-3">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="search" 
-                                       value="<?= htmlspecialchars($data['search']) ?>" 
-                                       placeholder="Nhập từ khóa tìm kiếm...">
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select" name="search_type">
-                                    <option value="novel" <?= $data['search_type'] === 'novel' ? 'selected' : '' ?>>
-                                        Tìm theo tên truyện
-                                    </option>
-                                    <option value="user" <?= $data['search_type'] === 'user' ? 'selected' : '' ?>>
-                                        Tìm theo tên người dùng
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="fas fa-search me-1"></i> Tìm kiếm
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+             <!-- Form tìm kiếm -->
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="GET" class="row g-3 align-items-end">
+
+      <!-- Ô nhập từ khóa -->
+      <div class="col-md-3">
+        <input type="text" class="form-control" name="search" 
+               value="<?= htmlspecialchars($data['search'] ?? '') ?>" 
+               placeholder="Nhập từ khóa tìm kiếm...">
+      </div>
+
+      <!-- Chọn loại tìm kiếm -->
+      <div class="col-md-3">
+        <select class="form-select" name="search_type" onchange="toggleDateInputs(this.value)">
+          <option value="novel" <?= $data['search_type'] === 'novel' ? 'selected' : '' ?>>Tìm theo tên truyện</option>
+          <option value="user" <?= $data['search_type'] === 'user' ? 'selected' : '' ?>>Tìm theo tên người dùng</option>
+          <option value="date" <?= $data['search_type'] === 'date' ? 'selected' : '' ?>>Tìm theo ngày mua</option>
+          <option value="range" <?= $data['search_type'] === 'range' ? 'selected' : '' ?>>Tìm theo khoảng ngày</option>
+        </select>
+      </div>
+
+      <!-- Input ngày cụ thể -->
+<div class="col-md-4" id="singleDateWrapper" style="<?= $data['search_type'] === 'date' ? '' : 'display:none;' ?>">
+  <label class="form-label">Ngày mua</label>
+  <input type="date" class="form-control" name="search_date" 
+         value="<?= htmlspecialchars($data['search_date'] ?? '') ?>">
+</div>
+
+<!-- Input khoảng ngày -->
+<div class="col-md-5" id="rangeDateWrapper" style="<?= $data['search_type'] === 'range' ? '' : 'display:none;' ?>">
+  <label class="form-label">Khoảng ngày</label>
+  <div class="input-group">
+    <span class="input-group-text">Từ</span>
+    <input type="date" class="form-control" name="from_date" 
+           value="<?= htmlspecialchars($data['from_date'] ?? '') ?>">
+    <span class="input-group-text">Đến</span>
+    <input type="date" class="form-control" name="to_date" 
+           value="<?= htmlspecialchars($data['to_date'] ?? '') ?>">
+  </div>
+</div>
+
+
+      <!-- Nút tìm kiếm -->
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="fas fa-search me-1"></i> Tìm kiếm
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+function toggleDateInputs(value) {
+  document.getElementById("singleDateWrapper").style.display = (value === "date") ? "block" : "none";
+  document.getElementById("rangeDateWrapper").style.display = (value === "range") ? "flex" : "none";
+}
+</script>
+
 
                 <div class="card">
                     <div class="card-body">

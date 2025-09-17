@@ -42,18 +42,28 @@ class Admin_purchases_controller {
             }
         }
         
-        // Lấy dữ liệu
-        $search = $_GET['search'] ?? '';
+        // Lấy dữ liệu tìm kiếm
+        $search      = $_GET['search'] ?? '';
         $search_type = $_GET['search_type'] ?? 'novel';
+       $date = $_GET['search_date'] ?? '';
+        // tìm theo 1 ngày
+        $from_date   = $_GET['from_date'] ?? '';   // tìm theo khoảng
+        $to_date     = $_GET['to_date'] ?? '';
+        
+        // Lấy danh sách hóa đơn theo điều kiện
+        $purchases = $this->model->getPurchases($search, $search_type, $date, $from_date, $to_date);
         
         $data = [
-            'purchases' => $this->model->getPurchases($search, $search_type),
-            'stats' => $this->model->getPurchaseStats(),
-            'top_novels' => $this->model->getTopSellingNovels(),
-            'search' => $search,
+            'purchases'   => $purchases,
+            'stats'       => $this->model->getPurchaseStats(),
+            'top_novels'  => $this->model->getTopSellingNovels(),
+            'search'      => $search,
             'search_type' => $search_type,
-            'success' => $success,
-            'error' => $error
+            'date'        => $date,
+            'from_date'   => $from_date,
+            'to_date'     => $to_date,
+            'success'     => $success,
+            'error'       => $error
         ];
         
         // Load view
@@ -64,4 +74,3 @@ class Admin_purchases_controller {
 // Khởi tạo controller và chạy
 $controller = new Admin_purchases_controller($conn);
 $controller->index();
-?>
